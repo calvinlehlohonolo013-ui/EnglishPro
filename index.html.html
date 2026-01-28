@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnglishHub Pro | Master English with Interactive Learning</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4a6bff;
+            --primary-dark: #2a4bcc;
+            --secondary: #ff7c52;
+            --accent: #00c9a7;
+            --light-blue: #e6f0ff;
+            --dark-blue: #1a237e;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-gray: #495057;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .main-header {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary) 100%);
+            color: white;
+            padding: 25px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+            opacity: 0.3;
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, #c8e6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Progress Container */
+        .progress-container {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin: 30px auto 40px;
+            max-width: 800px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--medium-gray);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .progress-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+        }
+
+        .progress-value {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .progress-bar {
+            height: 14px;
+            background: var(--medium-gray);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            color: var(--dark-gray);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 40px 0 80px;
+            min-height: 500px;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Level Selection */
+        .level-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            color: var(--dark-gray);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 30px auto 40px;
+            line-height: 1.6;
+        }
+
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .level-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 35px;
+            box-shadow: var(--shadow);
+            border: 2px solid transparent;
+            transition: var(--transition);
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .level-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .level-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 10px 20px rgba(74, 107, 255, 0.2);
+        }
+
+        .level-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+        }
+
+        .level-age {
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            padding: 6px 15px;
+            background: rgba(255, 124, 82, 0.1);
+            border-radius: 20px;
+        }
+
+        .level-desc {
+            color: var(--dark-gray);
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .level-features {
+            list-style: none;
+            text-align: left;
+            margin-top: 25px;
+            background: var(--light-gray);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .level-features li {
+            padding: 10px 0;
+            color: var(--dark-gray);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1rem;
+        }
+
+        .level-features li:last-child {
+            border-bottom: none;
+        }
+
+        .level-features li i {
+            color: var(--accent);
+            font-size: 1rem;
+            min-width: 24px;
+        }
+
+        /* Difficulty Selection */
+        .difficulty-section {
+            padding: 30px 0;
+        }
+
+        .back-button {
+            background: var(--dark-gray);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 30px;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .back-button:hover {
+            background: #343a40;
+            transform: translateX(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .difficulty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .difficulty-card {
+            background: white;
+            border-radius: 20px;
+            padding: 45px 35px;
+            box-shadow: var(--shadow);
+            border: 2px solid transparent;
+            transition: var(--transition);
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .difficulty-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .difficulty-card.easy {
+            border-color: var(--accent);
+        }
+
+        .difficulty-card.easy:hover {
+            box-shadow: 0 15px 35px rgba(0, 201, 167, 0.15);
+        }
+
+        .difficulty-card.medium {
+            border-color: var(--warning);
+        }
+
+        .difficulty-card.medium:hover {
+            box-shadow: 0 15px 35px rgba(255, 193, 7, 0.15);
+        }
+
+        .difficulty-card.hard {
+            border-color: var(--secondary);
+        }
+
+        .difficulty-card.hard:hover {
+            box-shadow: 0 15px 35px rgba(255, 124, 82, 0.15);
+        }
+
+        .difficulty-icon {
+            width: 90px;
+            height: 90px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2.5rem;
+            color: white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .difficulty-icon.easy {
+            background: linear-gradient(135deg, var(--accent), #00e6bf);
+        }
+
+        .difficulty-icon.medium {
+            background: linear-gradient(135deg, var(--warning), #ffd54f);
+        }
+
+        .difficulty-icon.hard {
+            background: linear-gradient(135deg, var(--secondary), #ff9c7d);
+        }
+
+        .difficulty-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .difficulty-card.easy .difficulty-title {
+            color: var(--accent);
+        }
+
+        .difficulty-card.medium .difficulty-title {
+            color: var(--warning);
+        }
+
+        .difficulty-card.hard .difficulty-title {
+            color: var(--secondary);
+        }
+
+        .difficulty-stats {
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+            margin-bottom: 20px;
+            font-weight: 600;
+            background: var(--light-gray);
+            padding: 8px 20px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .start-button {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 16px 35px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .start-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(74, 107, 255, 0.3);
+        }
+
+        /* Quiz Section */
+        .quiz-container {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: var(--shadow);
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid var(--medium-gray);
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .quiz-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+        }
+
+        .quit-button {
+            background: var(--light-gray);
+            color: var(--dark-gray);
+            border: 2px solid var(--medium-gray);
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quit-button:hover {
+            background: #e9ecef;
+            color: #495057;
+            transform: translateY(-2px);
+        }
+
+        .question-box {
+            background: var(--light-gray);
+            border-radius: 16px;
+            padding: 35px;
+            margin-bottom: 30px;
+            border-left: 6px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .question-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .question-number {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 10px 22px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(74, 107, 255, 0.2);
+        }
+
+        .question-text {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+            line-height: 1.5;
+            margin-bottom: 5px;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .option-button {
+            background: white;
+            border: 2px solid var(--medium-gray);
+            padding: 22px 25px;
+            border-radius: 12px;
+            text-align: left;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .option-button:hover {
+            border-color: var(--primary);
+            background: var(--light-blue);
+            transform: translateX(5px);
+        }
+
+        .option-letter {
+            width: 45px;
+            height: 45px;
+            background: var(--light-gray);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--dark-blue);
+            flex-shrink: 0;
+            font-size: 1.2rem;
+        }
+
+        .option-button.correct {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            border-color: var(--success);
+            color: #155724;
+        }
+
+        .option-button.correct .option-letter {
+            background: var(--success);
+            color: white;
+        }
+
+        .option-button.incorrect {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            border-color: var(--danger);
+            color: #721c24;
+        }
+
+        .option-button.incorrect .option-letter {
+            background: var(--danger);
+            color: white;
+        }
+
+        .feedback-box {
+            background: var(--light-blue);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 25px;
+            border-left: 4px solid var(--primary);
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.2rem;
+        }
+
+        .feedback-text {
+            color: var(--dark-blue);
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        /* Completion Screen */
+        .completion-screen {
+            text-align: center;
+            padding: 80px 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .trophy-icon {
+            font-size: 6rem;
+            color: var(--warning);
+            margin-bottom: 30px;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-20px); }
+        }
+
+        .completion-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--dark-blue);
+            margin-bottom: 20px;
+        }
+
+        .completion-subtitle {
+            font-size: 1.5rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 40px;
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, var(--primary), var(--dark-blue));
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            margin: 40px auto;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .score-display::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .score-value {
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .score-label {
+            font-size: 1.4rem;
+            opacity: 0.9;
+        }
+
+        .completion-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 220px;
+            justify-content: center;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(74, 107, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 18px 40px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 220px;
+            justify-content: center;
+        }
+
+        .btn-secondary:hover {
+            background: var(--light-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(74, 107, 255, 0.15);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .levels-grid, .difficulty-grid {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+            }
+            
+            .completion-title {
+                font-size: 2.8rem;
+            }
+            
+            .logo {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 20px 0 60px;
+            }
+            
+            .level-card, .difficulty-card {
+                padding: 30px 25px;
+            }
+            
+            .completion-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .quiz-container {
+                padding: 25px;
+            }
+            
+            .question-text {
+                font-size: 1.2rem;
+            }
+            
+            .option-button {
+                padding: 18px 20px;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .level-title, .difficulty-title {
+                font-size: 1.5rem;
+            }
+            
+            .quiz-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .question-box {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo-section">
+                <div class="logo">English<span>Hub</span> Pro</div>
+                <div class="tagline">Master English with our interactive 225-goal curriculum</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Container -->
+    <div class="progress-container">
+        <div class="progress-header">
+            <div class="progress-title">Your Learning Progress</div>
+            <div class="progress-value" id="progressValue">0%</div>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-label">
+            <span>Beginner</span>
+            <span id="currentProgress">0/225 Goals</span>
+            <span>Master</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Home Page - Level Selection -->
+            <div id="p-home" class="page active">
+                <div class="level-section">
+                    <h1 class="section-title">Select Your Learning Level</h1>
+                    <p class="section-subtitle">Choose the appropriate level based on your age and English proficiency. Our adaptive curriculum grows with you.</p>
+                    
+                    <div class="levels-grid">
+                        <div class="level-card" onclick="setAge('level1', 'Junior Level (Ages 10-12)')">
+                            <div class="level-icon">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <h2 class="level-title">Junior Mastery</h2>
+                            <div class="level-age">Ages 10-12</div>
+                            <p class="level-desc">Build fundamental English skills with engaging, age-appropriate content and interactive exercises.</p>
+                            <ul class="level-features">
+                                <li><i class="fas fa-check-circle"></i> Basic grammar & vocabulary</li>
+                                <li><i class="fas fa-check-circle"></i> Interactive reading exercises</li>
+                                <li><i class="fas fa-check-circle"></i> Foundational speaking skills</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="level-card" onclick="setAge('level2', 'Intermediate Level (Ages 13-15)')">
+                            <div class="level-icon">
+                                <i class="fas fa-tree"></i>
+                            </div>
+                            <h2 class="level-title">Intermediate Mastery</h2>
+                            <div class="level-age">Ages 13-15</div>
+                            <p class="level-desc">Develop complex language skills, critical thinking abilities, and advanced communication.</p>
+                            <ul class="level-features">
+                                <li><i class="fas fa-check-circle"></i> Advanced grammar concepts</li>
+                                <li><i class="fas fa-check-circle"></i> Reading comprehension</li>
+                                <li><i class="fas fa-check-circle"></i> Writing development</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="level-card" onclick="setAge('level3', 'Senior Level (Ages 16-17)')">
+                            <div class="level-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h2 class="level-title">Senior Mastery</h2>
+                            <div class="level-age">Ages 16-17</div>
+                            <p class="level-desc">Master advanced English for academic excellence, professional success, and confident communication.</p>
+                            <ul class="level-features">
+                                <li><i class="fas fa-check-circle"></i> College-prep vocabulary</li>
+                                <li><i class="fas fa-check-circle"></i> Critical analysis skills</li>
+                                <li><i class="fas fa-check-circle"></i> Academic writing</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Difficulty Selection Page -->
+            <div id="p-stages" class="page">
+                <div class="difficulty-section">
+                    <button class="back-button" onclick="go('p-home')">
+                        <i class="fas fa-arrow-left"></i> Back to Levels
+                    </button>
+                    
+                    <h1 class="section-title" id="age-title">Select Difficulty Level</h1>
+                    <p class="section-subtitle">Each level contains 25 carefully crafted goals to master specific English skills</p>
+                    
+                    <div class="difficulty-grid">
+                        <div class="difficulty-card easy" onclick="startQuiz('easy')">
+                            <div class="difficulty-icon easy">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h2 class="difficulty-title">Foundational</h2>
+                            <div class="difficulty-stats">25 Goals • Beginner Friendly</div>
+                            <p>Build confidence with basic vocabulary, simple grammar, and foundational concepts. Perfect for starting your English journey.</p>
+                            <button class="start-button">Start Foundational Level</button>
+                        </div>
+                        
+                        <div class="difficulty-card medium" onclick="startQuiz('hard')">
+                            <div class="difficulty-icon medium">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h2 class="difficulty-title">Intermediate</h2>
+                            <div class="difficulty-stats">25 Goals • Challenging</div>
+                            <p>Develop complex sentence structures, advanced vocabulary, and critical thinking. For learners ready to advance.</p>
+                            <button class="start-button">Start Intermediate Level</button>
+                        </div>
+                        
+                        <div class="difficulty-card hard" onclick="startQuiz('insane')">
+                            <div class="difficulty-icon hard">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <h2 class="difficulty-title">Advanced</h2>
+                            <div class="difficulty-stats">25 Goals • Mastery Level</div>
+                            <p>Master advanced grammar, literary analysis, and academic English proficiency. Challenge yourself to excellence.</p>
+                            <button class="start-button">Start Advanced Level</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Page -->
+            <div id="p-quiz" class="page">
+                <div class="quiz-container">
+                    <div class="quiz-header">
+                        <div class="quiz-title" id="quizTitle">English Challenge</div>
+                        <button class="quit-button" onclick="location.reload()">
+                            <i class="fas fa-times"></i> Exit Lesson
+                        </button>
+                    </div>
+                    <div id="quiz-cont"></div>
+                </div>
+            </div>
+
+            <!-- Completion Page -->
+            <div id="p-win" class="page">
+                <div class="completion-screen">
+                    <div class="trophy-icon pulse">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h1 class="completion-title">Level Complete!</h1>
+                    <div class="completion-subtitle">You've mastered this level</div>
+                    
+                    <div class="score-display">
+                        <div class="score-value" id="finalScore">25/25</div>
+                        <div class="score-label">Goals Achieved</div>
+                    </div>
+                    
+                    <div class="completion-buttons">
+                        <button class="btn-primary" onclick="location.reload()">
+                            <i class="fas fa-home"></i> Return to Dashboard
+                        </button>
+                        <button class="btn-secondary" onclick="go('p-stages')">
+                            <i class="fas fa-forward"></i> Try Next Level
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Your original JavaScript with all levels working -->
+    <script>
+        let curAge = "";
+        let score = 0;
+        let totalQuestions = 0;
+
+        // Your original database object remains the same
+        const db = {
+            level1: {
+                easy: [
+                    {q: "Which word is a noun?", a: "Pencil", b: "Sing", t: "A pencil is a thing."},
+                    {q: "I ___ a boy.", a: "am", b: "is", t: "Use 'am' for 'I'."},
+                    {q: "Opposite of 'Hot'?", a: "Cold", b: "Sun", t: "Cold is the antonym."},
+                    {q: "A, E, I, O, U are...", a: "Vowels", b: "Numbers", t: "These are the 5 vowels."},
+                    {q: "Plural of 'Cat'?", a: "Cats", b: "Cates", t: "Add 's'."},
+                    {q: "Which is a color?", a: "Red", b: "Fast", t: "Red is a color."},
+                    {q: "He ___ pizza.", a: "likes", b: "like", t: "He/She/It needs an 's'."},
+                    {q: "The sun is ___.", a: "yellow", b: "blue", t: "The sun is yellow."},
+                    {q: "A ___ of fish.", a: "school", b: "pack", t: "Group of fish is a school."},
+                    {q: "Identify the verb:", a: "Jump", b: "Apple", t: "Jump is an action."},
+                    {q: "Yesterday I ___.", a: "played", b: "play", t: "Past tense is -ed."},
+                    {q: "One dog, two ___.", a: "dogs", b: "dog", t: "Plural: dogs."},
+                    {q: "Opposite of 'Up'?", a: "Down", b: "Side", t: "Opposite of up is down."},
+                    {q: "I eat ___ orange.", a: "an", b: "a", t: "Use 'an' before vowels."},
+                    {q: "A cow ___.", a: "moos", b: "barks", t: "Cows moo."},
+                    {q: "Sky is ___.", a: "blue", b: "pink", t: "Sky is blue."},
+                    {q: "Stop ___!", a: "running", b: "run", t: "Use -ing after 'stop'."},
+                    {q: "Fruit name:", a: "Apple", b: "Carrot", t: "Apple is fruit."},
+                    {q: "I ___ happy.", a: "am", b: "are", t: "I am."},
+                    {q: "9, 10, ___.", a: "11", b: "12", t: "11 follows 10."},
+                    {q: "Opposite of 'Fast'?", a: "Slow", b: "Quick", t: "Slow is opposite."},
+                    {q: "He ___ to school.", a: "goes", b: "go", t: "He goes."},
+                    {q: "Baby dog?", a: "Puppy", b: "Kitten", t: "Puppy."},
+                    {q: "Plural of 'Man'?", a: "Men", b: "Mans", t: "Irregular: Men."},
+                    {q: "She ___ nice.", a: "is", b: "am", t: "She is."}
+                ],
+                hard: [
+                    {q: "Identify the adverb: 'He ran quickly.'", a: "Quickly", b: "Ran", t: "Adverbs describe the action (ending in -ly)."},
+                    {q: "Past of 'Buy'?", a: "Bought", b: "Buyed", t: "Irregular past: Bought."},
+                    {q: "Neither Jack ___ Jill.", a: "nor", b: "or", t: "Neither pairs with Nor."},
+                    {q: "Synonym of 'Large'?", a: "Huge", b: "Tiny", t: "Huge means very large."},
+                    {q: "Correct spelling?", a: "Because", b: "Bicause", t: "Learn the vowel order: B-e-c-a-u-s-e."},
+                    {q: "They ___ been here.", a: "have", b: "has", t: "They/We/I/You use 'have'."},
+                    {q: "Plural of 'Mouse'?", a: "Mice", b: "Mouses", t: "Irregular: Mice."},
+                    {q: "Which is a preposition?", a: "Under", b: "Happy", t: "Under shows position."},
+                    {q: "She is the ___ girl.", a: "tallest", b: "taller", t: "Superlative (group of many) uses -est."},
+                    {q: "Antonym of 'Hard'?", a: "Easy", b: "Difficult", t: "Easy is the opposite."},
+                    {q: "Correct one:", a: "It's cold.", b: "Its cold.", t: "It's = It is."},
+                    {q: "Past of 'Go'?", a: "Went", b: "Goed", t: "Irregular: Went."},
+                    {q: "Which is a pronoun?", a: "Us", b: "House", t: "Us replaces names."},
+                    {q: "A ___ of lions.", a: "pride", b: "herd", t: "Lions live in a pride."},
+                    {q: "He ___ speak well.", a: "doesn't", b: "don't", t: "He/She/It uses 'doesn't'."},
+                    {q: "Who ___ that?", a: "said", b: "sayed", t: "Past of say is said."},
+                    {q: "Correct spelling:", a: "Friend", b: "Freind", t: "i before e except after c."},
+                    {q: "Plural of 'Box'?", a: "Boxes", b: "Boxs", t: "Ends in x, add -es."},
+                    {q: "Which is an adjective?", a: "Pretty", b: "Talk", t: "Pretty describes a noun."},
+                    {q: "I have ___ money.", a: "some", b: "any", t: "Use 'some' for positive sentences."},
+                    {q: "Past of 'Write'?", a: "Wrote", b: "Writed", t: "Irregular: Wrote."},
+                    {q: "You ___ nice.", a: "are", b: "is", t: "You are."},
+                    {q: "Antonym of 'Start'?", a: "Finish", b: "Begin", t: "Finish is the end."},
+                    {q: "Plural of 'Foot'?", a: "Feet", b: "Foots", t: "Irregular: Feet."},
+                    {q: "Identify Noun:", a: "Water", b: "Drink", t: "Water is the substance."}
+                ],
+                insane: [
+                    {q: "If I ___ you, I'd go.", a: "were", b: "was", t: "Subjunctive mood: Use 'were'."},
+                    {q: "Passive voice of 'He ate it'?", a: "It was eaten.", b: "He was eaten.", t: "Object comes first."},
+                    {q: "Plural of 'Crisis'?", a: "Crises", b: "Crisises", t: "Greek plural ending changes to -es."},
+                    {q: "Synonym of 'Benevolent'?", a: "Kind", b: "Mean", t: "Benevolent means doing good."},
+                    {q: "Hardly ___ I started.", a: "had", b: "did", t: "Inversion: Hardly had I..."},
+                    {q: "Antonym of 'Vague'?", a: "Clear", b: "Blurry", t: "Clear is the opposite of vague."},
+                    {q: "Past Participle of 'Choose'?", a: "Chosen", b: "Chose", t: "Choose -> Chose -> Chosen."},
+                    {q: "Identify the conjunction:", a: "Although", b: "Quietly", t: "Although joins ideas."},
+                    {q: "Which is an abstract noun?", a: "Bravery", b: "Shield", t: "Bravery is a concept."},
+                    {q: "Correct spelling:", a: "Necessary", b: "Neccessary", t: "1 coffee, 2 sugars (1 C, 2 S)."},
+                    {q: "Past of 'Freeze'?", a: "Froze", b: "Freezed", t: "Irregular: Froze."},
+                    {q: "I wish I ___ tall.", a: "were", b: "am", t: "Wishing uses 'were'."},
+                    {q: "Which is a collective noun?", a: "Audience", b: "People", t: "Audience is a singular unit of many."},
+                    {q: "I look forward to ___.", a: "meeting", b: "meet", t: "Followed by a gerund (-ing)."},
+                    {q: "Identify the prefix:", a: "Un-", b: "-ing", t: "Un- comes before the word."},
+                    {q: "Antonym of 'Artificial'?", a: "Natural", b: "Fake", t: "Natural is real."},
+                    {q: "She has been here ___ 2010.", a: "since", b: "for", t: "Use 'since' for a point in time."},
+                    {q: "Plural of 'Phenomenon'?", a: "Phenomena", b: "Phenomenons", t: "Greek plural: Phenomena."},
+                    {q: "Which is a superlative?", a: "Best", b: "Better", t: "Good -> Better -> Best."},
+                    {q: "Identify the metaphor:", a: "Time is money.", b: "Like a bird.", t: "Metaphor says one thing IS another."},
+                    {q: "Past Participle of 'Swim'?", a: "Swum", b: "Swam", t: "Swim -> Swam -> Swum."},
+                    {q: "Which is correct?", a: "Whom did you see?", b: "Who did you saw?", t: "Whom is the object form."},
+                    {q: "Correct spelling:", a: "Occurred", b: "Ocured", t: "Double c, double r."},
+                    {q: "Antonym of 'Scarce'?", a: "Abundant", b: "Rare", t: "Abundant means plenty."},
+                    {q: "She sang ___.", a: "well", b: "good", t: "Use adverbs (well) to describe actions."}
+                ]
+            },
+            level2: {
+                easy: [
+                    {q: "Synonym of 'Fragile'?", a: "Delicate", b: "Strong", t: "Fragile means easily broken."},
+                    {q: "Identify the adjective: 'The silver moon.'", a: "Silver", b: "Moon", t: "Silver describes the moon."},
+                    {q: "He ___ been working all day.", a: "has", b: "have", t: "He uses has."},
+                    {q: "Plural of 'Half'?", a: "Halves", b: "Halfs", t: "Words ending in 'f' often change to 'ves'."},
+                    {q: "Which is a proper noun?", a: "Paris", b: "City", t: "Proper nouns are specific names."},
+                    {q: "Opposite of 'Arrival'?", a: "Departure", b: "Entrance", t: "Departure is leaving."},
+                    {q: "I enjoy ___ movies.", a: "watching", b: "watch", t: "Use -ing after 'enjoy'."},
+                    {q: "Which is a pronoun?", a: "Ours", b: "Our house", t: "Ours is a possessive pronoun."},
+                    {q: "Past of 'Catch'?", a: "Caught", b: "Catched", t: "Irregular: Caught."},
+                    {q: "A ___ of stairs.", a: "flight", b: "set", t: "A group of stairs is a flight."},
+                    {q: "She is ___ than me.", a: "older", b: "oldest", t: "Compare two using -er."},
+                    {q: "Identify the verb:", a: "Imagine", b: "Image", t: "Imagine is an action."},
+                    {q: "Correct spelling:", a: "Calendar", b: "Calender", t: "Calendar ends in -ar."},
+                    {q: "I ___ finished yet.", a: "haven't", b: "hasn't", t: "I haven't."},
+                    {q: "Opposite of 'Visible'?", a: "Invisible", b: "Unvisible", t: "The prefix is 'in-'."},
+                    {q: "The cat licked ___ paw.", a: "its", b: "it's", t: "Its shows possession."},
+                    {q: "Which is a fruit?", a: "Cherry", b: "Potato", t: "Cherry is fruit."},
+                    {q: "I haven't seen him ___ years.", a: "for", b: "since", t: "Use 'for' for a period of time."},
+                    {q: "Plural of 'Echo'?", a: "Echoes", b: "Echos", t: "Add -es to echo."},
+                    {q: "Identify the adverb:", a: "Often", b: "Off", t: "Often describes how frequently."},
+                    {q: "Correct one:", a: "They're here.", b: "There here.", t: "They're = They are."},
+                    {q: "Past of 'Teach'?", a: "Taught", b: "Teached", t: "Irregular: Taught."},
+                    {q: "A ___ of sheep.", a: "flock", b: "herd", t: "Flock is for sheep."},
+                    {q: "Opposite of 'Tight'?", a: "Loose", b: "Lose", t: "Loose with two 'o's."},
+                    {q: "He is good ___ math.", a: "at", b: "in", t: "Good at something."}
+                ],
+                hard: [
+                    {q: "Select the correctly spelled word:", a: "Environment", b: "Enviroment", t: "Don't forget the 'n' after 'o'."},
+                    {q: "Which sentence is correct?", a: "If he were here...", b: "If he was here...", t: "Subjunctive 'were' for imaginary cases."},
+                    {q: "Identify the object pronoun:", a: "Them", b: "They", t: "Them is used after the verb."},
+                    {q: "What is the collective noun for 'Keys'?", a: "Bunch", b: "Group", t: "A bunch of keys."},
+                    {q: "Antonym of 'Humility'?", a: "Pride", b: "Modesty", t: "Pride is the opposite of humility."},
+                    {q: "Past participle of 'Fly'?", a: "Flown", b: "Flew", t: "Fly -> Flew -> Flown."},
+                    {q: "Which word is a conjunction?", a: "Unless", b: "Under", t: "Unless connects two conditions."},
+                    {q: "He is the ___ of the three.", a: "smartest", b: "smarter", t: "Superlative for 3+ people."},
+                    {q: "Identify the abstract noun:", a: "Freedom", b: "Flag", t: "Freedom is a concept."},
+                    {q: "Synonym of 'Beneath'?", a: "Underneath", b: "Above", t: "Beneath means under."},
+                    {q: "Correct spelling?", a: "Separate", b: "Seperate", t: "There is 'a rat' in sep-a-rat-e."},
+                    {q: "Past of 'Shrink'?", a: "Shrank", b: "Shrinked", t: "Shrink -> Shrank."},
+                    {q: "Prefix for 'Legal'?", a: "Il-", b: "Un-", t: "Illegal starts with 'il-'."},
+                    {q: "A ___ of directors.", a: "board", b: "team", t: "A board of directors."},
+                    {q: "Identify the adverb:", a: "Seldom", b: "Sad", t: "Seldom is a frequency adverb."},
+                    {q: "Opposite of 'Expansion'?", a: "Contraction", b: "Growth", t: "Contraction is getting smaller."},
+                    {q: "Which is a relative pronoun?", a: "Who", b: "Him", t: "Who relates to the person before it."},
+                    {q: "Past of 'Draw'?", a: "Drew", b: "Drawed", t: "Draw -> Drew."},
+                    {q: "Correct spelling:", a: "Accommodation", b: "Acomodation", t: "Double c, double m."},
+                    {q: "Plural of 'Knife'?", a: "Knives", b: "Knifes", t: "F changes to V."},
+                    {q: "Antonym of 'Optimist'?", a: "Pessimist", b: "Dreamer", t: "Pessimist sees the bad side."},
+                    {q: "He acts ___ he's king.", a: "as if", b: "like as", t: "Use 'as if' for comparisons."},
+                    {q: "Past Participle of 'Eat'?", a: "Eaten", b: "Ate", t: "Eat -> Ate -> Eaten."},
+                    {q: "Prefix for 'Possible'?", a: "Im-", b: "Un-", t: "Impossible."},
+                    {q: "Identify the verb:", a: "Strengthen", b: "Strength", t: "Strengthen is to make strong."}
+                ],
+                insane: [
+                    {q: "Identify the 'Infinitive':", a: "To eat", b: "Eating", t: "The base form with 'to'."},
+                    {q: "What is an 'Oxymoron'?", a: "Jumbo shrimp", b: "Big whale", t: "Two opposite words together."},
+                    {q: "Plural of 'Appendix'?", a: "Appendices", b: "Appendixes", t: "Both are okay, but 'ices' is formal."},
+                    {q: "Identify the gerund:", a: "Running is fun", b: "He is running", t: "Gerund acts as a noun."},
+                    {q: "Correct spelling:", a: "Rhythm", b: "Rythm", t: "R-h-y-t-h-m."},
+                    {q: "Antonym of 'Obsolete'?", a: "Modern", b: "Old", t: "Obsolete means outdated."},
+                    {q: "Which is a 'Direct Object'?", a: "The ball", b: "To him", t: "Receives the action directly."},
+                    {q: "Identify the 'Simile':", a: "As fast as light", b: "He is a lion", t: "Simile uses 'like' or 'as'."},
+                    {q: "Past Participle of 'Forgive'?", a: "Forgiven", b: "Forgave", t: "Forgive -> Forgave -> Forgiven."},
+                    {q: "A ___ of monkeys.", a: "troop", b: "pride", t: "A troop of monkeys."},
+                    {q: "Which is a 'Main Clause'?", a: "I went home", b: "Because I was tired", t: "Main clause stands alone."},
+                    {q: "Correct spelling:", a: "Liaison", b: "Liason", t: "L-i-a-i-s-o-n."},
+                    {q: "Identify 'Personification':", a: "Sun smiled", b: "Hot sun", t: "Giving human traits to things."},
+                    {q: "Antonym of 'Vivid'?", a: "Dull", b: "Bright", t: "Dull is the opposite of vivid."},
+                    {q: "Plural of 'Bacterium'?", a: "Bacteria", b: "Bacteriums", t: "Latin plural: Bacteria."},
+                    {q: "Identify the 'Prefix' of 'Misunderstand':", a: "Mis-", b: "Under-", t: "Mis- is the primary prefix."},
+                    {q: "Which is a 'Transitive Verb'?", a: "Kick", b: "Sleep", t: "Kick needs an object (kick what?)."},
+                    {q: "Past of 'Lie' (recline)?", a: "Lay", b: "Lied", t: "I lay down yesterday."},
+                    {q: "Antonym of 'Fragile'?", a: "Durable", b: "Soft", t: "Durable means lasting."},
+                    {q: "Correct spelling:", a: "Occurrence", b: "Occurence", t: "Double c, double r, ends in -ence."},
+                    {q: "A ___ of whales.", a: "pod", b: "school", t: "A pod of whales."},
+                    {q: "Identify the 'Idiom':", a: "Piece of cake", b: "Sweet cake", t: "Idioms have hidden meanings."},
+                    {q: "Past Participle of 'Rise'?", a: "Risen", b: "Rose", t: "Rise -> Rose -> Risen."},
+                    {q: "Which is 'Active Voice'?", a: "I did it", b: "It was done", t: "Subject performs the action."},
+                    {q: "Plural of 'Syllabus'?", a: "Syllabi", b: "Syllabuses", t: "Both are correct, Syllabi is formal."}
+                ]
+            },
+            level3: {
+                easy: [
+                    {q: "Which is an 'Interjection'?", a: "Wow!", b: "And", t: "Shows sudden emotion."},
+                    {q: "Synonym of 'Hostile'?", a: "Unfriendly", b: "Kind", t: "Hostile means aggressive."},
+                    {q: "He ___ the race.", a: "won", b: "win", t: "Past tense: won."},
+                    {q: "Plural of 'Focus'?", a: "Foci", b: "Focuses", t: "Foci is the formal plural."},
+                    {q: "Which is a 'Compound Word'?", a: "Notebook", b: "Paper", t: "Two words joined as one."},
+                    {q: "Opposite of 'Generous'?", a: "Stingy", b: "Happy", t: "Stingy means not giving."},
+                    {q: "Identify the 'Article':", a: "The", b: "They", t: "Articles are a, an, the."},
+                    {q: "Which is an 'Adjective'?", a: "Enormous", b: "Quickly", t: "Enormous describes size."},
+                    {q: "Past of 'Think'?", a: "Thought", b: "Thinked", t: "Irregular: Thought."},
+                    {q: "A ___ of kittens.", a: "litter", b: "pack", t: "A litter of kittens."},
+                    {q: "She is the ___ student.", a: "best", b: "better", t: "Superlative: Best."},
+                    {q: "Identify the 'Verb':", a: "Simplify", b: "Simple", t: "Simplify is to make simple."},
+                    {q: "Correct spelling:", a: "Questionnaire", b: "Questionaire", t: "Double n."},
+                    {q: "I ___ seen it.", a: "have", b: "has", t: "I have."},
+                    {q: "Opposite of 'Innocent'?", a: "Guilty", b: "Bad", t: "Guilty is the legal opposite."},
+                    {q: "Which is a 'Common Noun'?", a: "Country", b: "Africa", t: "General name, not specific."},
+                    {q: "I've been waiting ___ noon.", a: "since", b: "for", t: "Point in time: since."},
+                    {q: "Plural of 'Volcano'?", a: "Volcanoes", b: "Volcanos", t: "Add -es."},
+                    {q: "Identify the 'Adverb':", a: "Always", b: "All", t: "Always is a frequency adverb."},
+                    {q: "Correct one:", a: "Whose car?", b: "Who's car?", t: "Whose shows possession."},
+                    {q: "Past of 'Fight'?", a: "Fought", b: "Fighted", t: "Irregular: Fought."},
+                    {q: "A ___ of wolves.", a: "pack", b: "flock", t: "A pack of wolves."},
+                    {q: "Opposite of 'Major'?", a: "Minor", b: "Small", t: "Minor is the direct antonym."},
+                    {q: "He ___ finished yet.", a: "hasn't", b: "haven't", t: "He hasn't."},
+                    {q: "Prefix for 'Patient'?", a: "Im-", b: "Un-", t: "Impatient."}
+                ],
+                hard: [
+                    {q: "What is an 'Anagram'?", a: "Rearranged letters", b: "Same backwards", t: "Letters from one word making another."},
+                    {q: "Identify the 'Conjunction':", a: "Nevertheless", b: "Quickly", t: "Nevertheless connects two points."},
+                    {q: "Correct spelling?", a: "Millennium", b: "Millenium", t: "Double l, double n."},
+                    {q: "Which is 'Passive Voice'?", a: "The wall was painted.", b: "He painted the wall.", t: "Action done to the subject."},
+                    {q: "Antonym of 'Prudent'?", a: "Reckless", b: "Careful", t: "Prudent means careful."},
+                    {q: "Past Participle of 'Ring'?", a: "Rung", b: "Rang", t: "Ring -> Rang -> Rung."},
+                    {q: "Which is an 'Infinitive'?", a: "To play", b: "Playing", t: "To + base verb."},
+                    {q: "Identify the 'Metaphor':", a: "You are my sunshine.", b: "As bright as sun.", t: "Direct comparison without 'as'."},
+                    {q: "Plural of 'Alumnus'?", a: "Alumni", b: "Alumnuses", t: "Latin plural: Alumni."},
+                    {q: "Identify the 'Adjective' form:", a: "Heroic", b: "Hero", t: "Heroic describes a person."},
+                    {q: "Synonym of 'Meticulous'?", a: "Thorough", b: "Careless", t: "Meticulous means very careful."},
+                    {q: "Past of 'Lay' (place something)?", a: "Laid", b: "Lay", t: "I laid the book down."},
+                    {q: "Identify the 'Gerund':", a: "Swimming is good", b: "I am swimming", t: "Noun made from a verb."},
+                    {q: "A ___ of lions.", a: "pride", b: "herd", t: "A pride of lions."},
+                    {q: "Which is a 'Relative Clause'?", a: "Who lives here", b: "He lives here", t: "Starts with who, which, that."},
+                    {q: "Antonym of 'Abundant'?", a: "Scarce", b: "Plenty", t: "Scarce means very little."},
+                    {q: "Correct spelling:", a: "Hierarchy", b: "Heirarchy", t: "H-i-e-r-a-r-c-h-y."},
+                    {q: "Past Participle of 'Bite'?", a: "Bitten", b: "Bit", t: "Bite -> Bit -> Bitten."},
+                    {q: "Identify 'Onomatopoeia':", a: "Bang!", b: "Loud!", t: "Words that mimic sounds."},
+                    {q: "Antonym of 'Eager'?", a: "Indifferent", b: "Excited", t: "Indifferent means not caring."},
+                    {q: "Plural of 'Medium'?", a: "Media", b: "Mediums", t: "Latin plural: Media."},
+                    {q: "Correct spelling:", a: "Conscience", b: "Consience", t: "Con-science."},
+                    {q: "A ___ of experts.", a: "panel", b: "group", t: "A panel of experts."},
+                    {q: "Identify the 'Prefix' of 'Antisocial':", a: "Anti-", b: "Social-", t: "Anti- means against."},
+                    {q: "Which is 'Direct Speech'?", a: "\"Hello,\" he said.", b: "He said hello.", t: "Uses quotation marks."}
+                ],
+                insane: [
+                    {q: "What is an 'Alliteration'?", a: "Peter Piper picked...", b: "Rose is red.", t: "Same starting sound."},
+                    {q: "Identify the 'Subjunctive' mood:", a: "If I were rich...", b: "I am rich.", t: "Hypothetical 'were'."},
+                    {q: "Plural of 'Criterion'?", a: "Criteria", b: "Criterions", t: "Greek plural: Criteria."},
+                    {q: "Identify the 'Euphemism':", a: "Passed away", b: "Died", t: "A nicer way to say something harsh."},
+                    {q: "Antonym of 'Altruistic'?", a: "Selfish", b: "Kind", t: "Altruistic means selfless."},
+                    {q: "Correct spelling:", a: "Maintenance", b: "Maintainance", t: "Main-ten-ance."},
+                    {q: "Identify the 'Hyperbole':", a: "I've told you a million times!", b: "I've told you twice.", t: "Extreme exaggeration."},
+                    {q: "Past Participle of 'Lay'?", a: "Laid", b: "Lain", t: "Lay (place) -> Laid -> Laid."},
+                    {q: "What is an 'Archaisms'?", a: "Thou art", b: "You are", t: "Very old English words."},
+                    {q: "Identify the 'Interrogative':", a: "Where are you?", b: "I am here.", t: "Asking a question."},
+                    {q: "Antonym of 'Obscure'?", a: "Famous", b: "Hidden", t: "Famous is easy to see; obscure is not."},
+                    {q: "Correct spelling:", a: "Fluorescent", b: "Florescent", t: "F-l-u-o-r-e-s-c-e-n-t."},
+                    {q: "Identify a 'Complex Sentence':", a: "Since it rained, we stayed.", b: "It rained.", t: "Has a dependent clause."},
+                    {q: "Antonym of 'Morose'?", a: "Cheerful", b: "Sad", t: "Morose means gloomy."},
+                    {q: "Plural of 'Larva'?", a: "Larvae", b: "Larvas", t: "Latin plural: Larvae."},
+                    {q: "Identify the 'Synecdoche':", a: "New wheels (for a car)", b: "Fast car", t: "Part representing the whole."},
+                    {q: "Correct spelling:", a: "Entrepreneur", b: "Enterpreneur", t: "E-n-t-r-e-p-r-e-n-e-u-r."},
+                    {q: "Past of 'Slay'?", a: "Slew", b: "Slayed", t: "Slay -> Slew."},
+                    {q: "What is a 'Paradox'?", a: "Less is more", b: "More is more", t: "A statement that contradicts itself."},
+                    {q: "Identify the 'Passive Voice' object:", a: "The book", b: "The boy", t: "In 'The book was read by the boy'."},
+                    {q: "Antonym of 'Lethargic'?", a: "Energetic", b: "Sleepy", t: "Lethargic means tired."},
+                    {q: "Correct spelling:", a: "Bureaucracy", b: "Burocracy", t: "B-u-r-e-a-u-c-r-a-c-y."},
+                    {q: "Identify the 'Main Verb':", a: "Running", b: "Is", t: "In 'He is running'."},
+                    {q: "Plural of 'Index'?", a: "Indices", b: "Indexes", t: "Both are okay; Indices is formal."},
+                    {q: "Final Goal: 'I'll' is a...", a: "Contraction", b: "Noun", t: "I + Will = I'll."}
+                ]
+            }
+        };
+
+        function go(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function setAge(age, title) {
+            curAge = age;
+            document.getElementById('age-title').innerText = title;
+            go('p-stages');
+        }
+
+        function startQuiz(stage) {
+            score = 0;
+            totalQuestions = db[curAge][stage].length;
+            
+            // Update progress
+            document.getElementById('progressFill').style.width = '0%';
+            document.getElementById('progressValue').innerText = '0%';
+            document.getElementById('currentProgress').innerText = `0/${totalQuestions} Goals`;
+            
+            const cont = document.getElementById('quiz-cont');
+            cont.innerHTML = "";
+            
+            // Safety check
+            if(!db[curAge] || !db[curAge][stage]) {
+                cont.innerHTML = "<p>Questions for this stage are being updated. Please try another level.</p>";
+                go('p-quiz');
+                return;
+            }
+
+            // Set quiz title based on difficulty
+            let difficultyText = '';
+            if (stage === 'easy') difficultyText = 'Foundational';
+            else if (stage === 'hard') difficultyText = 'Intermediate';
+            else difficultyText = 'Advanced';
+            
+            document.getElementById('quizTitle').innerText = `${difficultyText} Level - English Challenge`;
+
+            // Create questions
+            db[curAge][stage].forEach((item, i) => {
+                const div = document.createElement('div');
+                div.className = "question-box";
+                div.setAttribute('data-index', i);
+                
+                // Randomize option order
+                const options = [
+                    {text: item.a, isCorrect: true, letter: 'A'},
+                    {text: item.b, isCorrect: false, letter: 'B'}
+                ];
+                
+                // Shuffle options
+                if (Math.random() > 0.5) {
+                    options.reverse();
+                    options[0].letter = 'A';
+                    options[1].letter = 'B';
+                }
+                
+                div.innerHTML = `
+                    <div class="question-header">
+                        <div class="question-number">Goal ${i+1} of ${totalQuestions}</div>
+                    </div>
+                    <div class="question-text">${item.q}</div>
+                    <div class="options-container">
+                        ${options.map(opt => `
+                            <button class="option-button" onclick="checkAnswer(this, ${opt.isCorrect}, '${item.a}', '${item.t}', ${i})">
+                                <div class="option-letter">${opt.letter}</div>
+                                <div>${opt.text}</div>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div class="feedback-box" id="feedback-${i}">
+                        <div class="feedback-title">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Learning Point</span>
+                        </div>
+                        <div class="feedback-text">${item.t}</div>
+                    </div>
+                `;
+                cont.appendChild(div);
+            });
+            
+            go('p-quiz');
+        }
+
+        function checkAnswer(btn, isCorrect, correctAnswer, tipText, questionIndex) {
+            const questionBox = btn.closest('.question-box');
+            const feedbackBox = questionBox.querySelector('.feedback-box');
+            const allButtons = questionBox.querySelectorAll('.option-button');
+            
+            // Prevent double answering
+            if (questionBox.getAttribute('data-answered') === 'true') return;
+            questionBox.setAttribute('data-answered', 'true');
+            
+            // Disable all buttons
+            allButtons.forEach(b => {
+                b.style.pointerEvents = 'none';
+                // Highlight correct answer
+                if (b.querySelector('div:nth-child(2)').innerText === correctAnswer) {
+                    b.classList.add('correct');
+                }
+            });
+            
+            // Mark clicked button
+            if (isCorrect) {
+                btn.classList.add('correct');
+                score++;
+                
+                // Update progress
+                const progressPercent = Math.round((score / totalQuestions) * 100);
+                document.getElementById('progressFill').style.width = `${progressPercent}%`;
+                document.getElementById('progressValue').innerText = `${progressPercent}%`;
+                document.getElementById('currentProgress').innerText = `${score}/${totalQuestions} Goals`;
+                
+                feedbackBox.innerHTML = `
+                    <div class="feedback-title" style="color: var(--success);">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Excellent! Goal Achieved</span>
+                    </div>
+                    <div class="feedback-text">${tipText}</div>
+                `;
+            } else {
+                btn.classList.add('incorrect');
+                feedbackBox.innerHTML = `
+                    <div class="feedback-title" style="color: var(--danger);">
+                        <i class="fas fa-times-circle"></i>
+                        <span>Let's Review This Concept</span>
+                    </div>
+                    <div class="feedback-text">${tipText}</div>
+                `;
+            }
+            
+            feedbackBox.style.display = 'block';
+            
+            // Check if all questions are answered
+            const answeredQuestions = document.querySelectorAll('.question-box[data-answered="true"]').length;
+            if (answeredQuestions === totalQuestions) {
+                setTimeout(() => {
+                    document.getElementById('finalScore').innerText = `${score}/${totalQuestions}`;
+                    go('p-win');
+                }, 1000);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set initial progress
+            document.getElementById('progressFill').style.width = '0%';
+            document.getElementById('progressValue').innerText = '0%';
+            document.getElementById('currentProgress').innerText = '0/225 Goals';
+        });
+    </script>
+</body>
+</html>
